@@ -1,4 +1,4 @@
-module newhire-rate
+module two-way-score
 
 go 1.22
 
