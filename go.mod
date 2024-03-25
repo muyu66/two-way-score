@@ -1,4 +1,4 @@
-module two-way-score
+module github.com/muyu66/two-way-score
 
 go 1.22
 
