@@ -1,12 +1,19 @@
-goos: windows
-goarch: amd64
-pkg: newhire-rate/calc
-cpu: 11th Gen Intel(R) Core(TM) i5-11500 @ 2.70GHz
-BenchmarkHigh
-BenchmarkHigh-12        1000000000               0.6298 ns/op
-BenchmarkHigh2
-BenchmarkHigh2-12       1000000000               0.7689 ns/op
-BenchmarkHigh3
-BenchmarkHigh3-12       1000000000               0.7107 ns/op
-BenchmarkHigh4
-BenchmarkHigh4-12           1437            751049 ns/op
+- 环境信息：
+    - 操作系统：`goos: windows`
+    - 架构：`goarch: amd64`
+    - 包路径：`pkg: github.com/muyu66/two-way-score`
+    - CPU信息：`cpu: 11th Gen Intel(R) Core(TM) i5-11500 @ 2.70GHz`
+
+- 测试用例：
+    - **BenchmarkSmall**：
+        - 并发数：`BenchmarkSmall-12`
+        - 执行次数：`1000000000` 次
+    - **BenchmarkBig**：
+        - 并发数：`BenchmarkBig-12`
+        - 每次操作平均耗时：`1730561000` 纳秒/操作 (ns/op)
+    - **BenchmarkBig2**：
+        - 并发数：`BenchmarkBig2-12`
+        - 每次操作平均耗时：`7365608100` 纳秒/操作 (ns/op)
+    - **BenchmarkBig3**：
+        - 并发数：`BenchmarkBig3-12`
+        - 每次操作平均耗时：`1883808200` 纳秒/操作 (ns/op)

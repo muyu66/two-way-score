@@ -19,11 +19,11 @@ const (
 	MinDeep int64 = 1
 )
 
-func Calc(nodes []Node) (map[id]float64, error) {
-	if nodes == nil || len(nodes) == 0 {
+func Calc(nodes *[]Node) (map[id]float64, error) {
+	if nodes == nil || len(*nodes) == 0 {
 		return nil, errors.New("空节点，无法计算")
 	}
-	maxDeep := slices.MaxFunc(nodes, func(a, b Node) int {
+	maxDeep := slices.MaxFunc(*nodes, func(a, b Node) int {
 		if a.Deep > b.Deep {
 			return 1
 		} else if a.Deep < b.Deep {
@@ -42,9 +42,9 @@ func Calc(nodes []Node) (map[id]float64, error) {
 	return m, nil
 }
 
-func groupByUserIdWhereDeep(nodes []Node, deep int64) map[id][]Node {
+func groupByUserIdWhereDeep(nodes *[]Node, deep int64) map[id][]Node {
 	groups := make(map[id][]Node)
-	for _, node := range nodes {
+	for _, node := range *nodes {
 		if deep == node.Deep {
 			groups[node.TargetId] = append(groups[node.TargetId], node)
 		}
@@ -79,7 +79,7 @@ func calcNodeIncrScore(node Node, nodeScoreMap *map[id]float64, nodeWeight float
 }
 
 // 往下计算
-func downCalc(nodes []Node, maxDeep int64, nodeScoreMap map[id]float64, nodeDMap map[id]float64, dMap map[id]float64) {
+func downCalc(nodes *[]Node, maxDeep int64, nodeScoreMap map[id]float64, nodeDMap map[id]float64, dMap map[id]float64) {
 	for currDeep := maxDeep; currDeep > 0; currDeep-- {
 		log.Debug("-----------DOWN-DOWN-DOWN-DOWN-------------")
 		log.Debug("currDeep=", currDeep)
@@ -138,7 +138,7 @@ func downCalc(nodes []Node, maxDeep int64, nodeScoreMap map[id]float64, nodeDMap
 }
 
 // 往上计算
-func upCalc(nodes []Node, maxDeep int64, nodeDMap map[id]float64, dMap map[id]float64) {
+func upCalc(nodes *[]Node, maxDeep int64, nodeDMap map[id]float64, dMap map[id]float64) {
 	for currDeep := MinDeep; currDeep <= maxDeep; currDeep++ {
 		log.Debug("-----------UP-UP-UP-UP-------------")
 		log.Debug("currDeep=", currDeep)
