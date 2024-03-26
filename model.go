@@ -1,4 +1,4 @@
-package main
+package tws
 
 /**
  * string OR int64

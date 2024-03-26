@@ -1,4 +1,4 @@
-package main
+package tws
 
 import (
 	"github.com/stretchr/testify/assert"
