@@ -4,19 +4,19 @@ import (
 	"errors"
 	log "github.com/sirupsen/logrus"
 	"math"
-	"os"
 	"slices"
 )
 
 func init() {
-	// TODO: 环境切换格式
-	log.SetFormatter(&log.TextFormatter{})
-	log.SetOutput(os.Stdout)
 	log.SetLevel(log.ErrorLevel)
+	log.SetFormatter(&log.TextFormatter{
+		ForceColors:   true,
+		FullTimestamp: true,
+	})
 }
 
 const (
-	MinDeep int64 = 1
+	minDeep int64 = 1
 )
 
 func Calc(nodes *[]Node) (map[id]float64, error) {
@@ -139,7 +139,7 @@ func downCalc(nodes *[]Node, maxDeep int64, nodeScoreMap map[id]float64, nodeDMa
 
 // 往上计算
 func upCalc(nodes *[]Node, maxDeep int64, nodeDMap map[id]float64, dMap map[id]float64) {
-	for currDeep := MinDeep; currDeep <= maxDeep; currDeep++ {
+	for currDeep := minDeep; currDeep <= maxDeep; currDeep++ {
 		log.Debug("-----------UP-UP-UP-UP-------------")
 		log.Debug("currDeep=", currDeep)
 		nodesGroup := groupByUserIdWhereDeep(nodes, currDeep)
@@ -159,7 +159,7 @@ func upCalc(nodes *[]Node, maxDeep int64, nodeDMap map[id]float64, dMap map[id]f
 			}
 			log.Debugln("scores=", scores)
 
-			arrD := calcArrDiscrepancy(scores)
+			arrD := calcArrDiscrepancy(&scores)
 			dMap[userId] = arrD
 			log.Debugln("评分离散=", arrD)
 
@@ -170,10 +170,16 @@ func upCalc(nodes *[]Node, maxDeep int64, nodeDMap map[id]float64, dMap map[id]f
 			}
 			log.Debugln("追加离散", appendD)
 
+			scoresSum := int64(0)
+			for _, v := range scores {
+				scoresSum += v
+			}
+			scoresLen := len(scores)
+
 			// 确保 for nodes 是顺序的
 			for _, node := range nodes {
 				// 计算此人评分从众程度(离散程度)
-				d, err := calcDiscrepancy2(float64(node.Score), scores, arrD)
+				d, err := calcDiscrepancy3(float64(node.Score), arrD, scoresLen, scoresSum)
 				if err != nil {
 					// 即使错误也不能影响后续计算
 					log.Fatal(err)

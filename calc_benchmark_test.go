@@ -5,12 +5,6 @@ import (
 	"testing"
 )
 
-const (
-	MaxNodeCount = 1000000
-	MaxUserCount = 1000000
-	MaxDeep      = 60
-)
-
 // nodes数量公式 = maxLeaf ^ (maxDeep - 1)
 func generateNodes(targetId int, deep int64, nodes *[]Node, maxDeep int64, maxLeaf int) {
 	deep++
@@ -42,29 +36,56 @@ func BenchmarkSmall(b *testing.B) {
 	_, _ = Calc(&nodes)
 }
 
-// 测试大数据集 390412
+// 测试小数据集 1500152
+func BenchmarkSmallPlus(b *testing.B) {
+	b.StopTimer()
+	var nodes []Node
+	generateNodes(1, 0, &nodes, 5, 35)
+	b.StartTimer()
+	_, _ = Calc(&nodes)
+}
+
+// 测试大数据集 12944285
 func BenchmarkBig(b *testing.B) {
 	b.StopTimer()
 	var nodes []Node
-	generateNodes(1, 0, &nodes, 5, 25)
+	generateNodes(1, 0, &nodes, 5, 60)
 	b.StartTimer()
 	_, _ = Calc(&nodes)
 }
 
-// 测试大复杂深度 393215
+// 测试大数据集 11786432
+func BenchmarkBigPlus(b *testing.B) {
+	b.StopTimer()
+	var nodes []Node
+	generateNodes(1, 0, &nodes, 6, 26)
+	b.StartTimer()
+	_, _ = Calc(&nodes)
+}
+
+// 测试大复杂深度 12582911
 func BenchmarkBig2(b *testing.B) {
 	b.StopTimer()
 	var nodes []Node
-	generateNodes(1, 0, &nodes, 19, 2)
+	generateNodes(1, 0, &nodes, 24, 2)
 	b.StartTimer()
 	_, _ = Calc(&nodes)
 }
 
-// 测试大数据集+大复杂深度 256124
+// 测试大复杂深度 16951984
+func BenchmarkBig2Plus(b *testing.B) {
+	b.StopTimer()
+	var nodes []Node
+	generateNodes(1, 0, &nodes, 13, 4)
+	b.StartTimer()
+	_, _ = Calc(&nodes)
+}
+
+// 测试大数据集+大复杂深度 15874997
 func BenchmarkBig3(b *testing.B) {
 	b.StopTimer()
 	var nodes []Node
-	generateNodes(1, 0, &nodes, 7, 8)
+	generateNodes(1, 0, &nodes, 9, 8)
 	b.StartTimer()
 	_, _ = Calc(&nodes)
 }

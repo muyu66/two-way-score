@@ -1,19 +1,18 @@
-- 环境信息：
-    - 操作系统：`goos: windows`
-    - 架构：`goarch: amd64`
-    - 包路径：`pkg: github.com/muyu66/two-way-score`
-    - CPU信息：`cpu: 11th Gen Intel(R) Core(TM) i5-11500 @ 2.70GHz`
-
-- 测试用例：
-    - **BenchmarkSmall**：
-        - 并发数：`BenchmarkSmall-12`
-        - 执行次数：`1000000000` 次
-    - **BenchmarkBig**：
-        - 并发数：`BenchmarkBig-12`
-        - 每次操作平均耗时：`1730561000` 纳秒/操作 (ns/op)
-    - **BenchmarkBig2**：
-        - 并发数：`BenchmarkBig2-12`
-        - 每次操作平均耗时：`7365608100` 纳秒/操作 (ns/op)
-    - **BenchmarkBig3**：
-        - 并发数：`BenchmarkBig3-12`
-        - 每次操作平均耗时：`1883808200` 纳秒/操作 (ns/op)
+goos: windows
+goarch: amd64
+pkg: github.com/muyu66/two-way-score
+cpu: 11th Gen Intel(R) Core(TM) i5-11500 @ 2.70GHz
+BenchmarkSmall
+BenchmarkSmall-12               1000000000
+BenchmarkSmallPlus
+BenchmarkSmallPlus-12           1000000000               0.5444 ns/op
+BenchmarkBig
+BenchmarkBig-12                        1        4744861900 ns/op
+BenchmarkBigPlus
+BenchmarkBigPlus-12                    1        4372447500 ns/op
+BenchmarkBig2
+BenchmarkBig2-12                       1        5396243000 ns/op
+BenchmarkBig2Plus
+BenchmarkBig2Plus-12                   1        6772426600 ns/op
+BenchmarkBig3
+BenchmarkBig3-12                       1        5870722000 ns/op
