@@ -392,3 +392,54 @@ func Test5(t *testing.T) {
 	result, _ := Calc(&nodes)
 	assert.Equal(t, expectedResult, result)
 }
+
+func TestCalcCycle1(t *testing.T) {
+	nodes := []Node{
+		{RaterId: 1, TargetId: 2, Deep: 2, Score: 10},
+		// 插入
+		{RaterId: 2, TargetId: 1, Deep: 1, Score: 1},
+	}
+
+	expectedResult := map[id]float64{
+		1: 2.05,
+		2: 10.5,
+	}
+
+	result, _ := Calc(&nodes)
+
+	assert.Equal(t, expectedResult, result)
+}
+
+func TestCalcCycle2(t *testing.T) {
+	nodes := []Node{
+		{RaterId: 2, TargetId: 1, Deep: 2, Score: 1},
+		// 插入
+		{RaterId: 1, TargetId: 2, Deep: 1, Score: 10},
+	}
+
+	expectedResult := map[id]float64{
+		1: 1.5,
+		2: 10.15,
+	}
+
+	result, _ := Calc(&nodes)
+
+	assert.Equal(t, expectedResult, result)
+}
+
+func TestCalcCycle3(t *testing.T) {
+	nodes := []Node{
+		{RaterId: 2, TargetId: 1, Deep: 1, Score: 1},
+		// 插入
+		{RaterId: 1, TargetId: 2, Deep: 1, Score: 10},
+	}
+
+	expectedResult := map[id]float64{
+		1: 1.5,
+		2: 10.15,
+	}
+
+	result, _ := Calc(&nodes)
+
+	assert.Equal(t, expectedResult, result)
+}
